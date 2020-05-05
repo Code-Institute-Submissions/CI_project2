@@ -1,0 +1,12 @@
+.movie-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.movie-list img {
+  width: 200px;
+}
+/*# sourceMappingURL=styles.css.map */
