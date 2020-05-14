@@ -20,9 +20,15 @@
         <form>
           <div>
             <label for="search-text"><h1>Search Movie</h1></label>
-            <input type="text" name="search-text" id="search-text" required />
+            <input
+              type="text"
+              name="search-text"
+              id="search-text"
+              autocomplete="off"
+              placeholder="Movie Name..."
+            />
+            <button type="submit" id="search-btn">Search Movie</button>
           </div>
-          <button type="submit" id="search-btn">Search Movie</button>
         </form>
       </div>
     </section>
