@@ -4,38 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MovieInfo</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
     <nav class="nav">
       <div class="nav-wrapper">
-        <a class="nav-link" href="#">Movie Info</a>
-        <a class="nav-link" href="theatre.html">Theatre Near Me</a>
+        <a class="brand-link" href="#">Movie app</a>
       </div>
-    </nav>
-
-    <section class="search-container">
       <div class="search-wrapper">
         <form>
           <div>
-            <label for="search-text"><h1>Search Movie</h1></label>
+            <i class="fas fa-search"></i>
             <input
               type="text"
               name="search-text"
               id="search-text"
               autocomplete="off"
-              placeholder="Movie Name..."
+              placeholder="Movie Name"
             />
             <button type="submit" id="search-btn">Search Movie</button>
           </div>
         </form>
       </div>
-    </section>
+    </nav>
 
     <section id="movieSearched">
       <div class="movie"></div>
     </section>
+    <script
+      src="https://kit.fontawesome.com/763b9f9d47.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="jquery-3.5.0.min.js"></script>
     <script src="main.js"></script>
   </body>

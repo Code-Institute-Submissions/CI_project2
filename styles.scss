@@ -1,19 +1,76 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   padding: 0;
   margin: 0;
   background-color: black;
   color: white;
+  overflow: hidden;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+#movieSearched {
+  margin-top: 20px;
 }
 
 .movie-list {
-  display: flex;
-  overflow-x: hidden;
-  width: 100%;
+  position: relative;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-list {
+    overflow-x: scroll;
+    display: flex;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  button {
+    color: white;
+    width: 30px;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.411);
+    border: none;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  button.left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  button.right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   img {
-    width: 200px;
-    height: 300px;
+    height: 330px;
+    width: 250px;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      margin: 0 10px;
+      transform: scale(1.05);
+      cursor: pointer;
+    }
   }
 
   p {
@@ -24,21 +81,60 @@ body {
 }
 
 .movie-info-container {
-  display: flex;
+  display: none;
+  position: relative;
   justify-content: center;
   background-color: black;
+
+  .close-movie-info {
+    margin: 10px 10px;
+    font-size: 2em;
+    color: rgb(116, 0, 0);
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      color: rgb(255, 51, 51);
+      scale: (2);
+    }
+  }
+
+  .backdrop-overlay {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.705),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
   .movie-info {
-    width: 1280px;
+    width: 100%;
     display: flex;
+    justify-content: space-around;
     align-items: center;
     height: 720px;
-    background-position: center center;
+    background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
 
+    .movie-video-container {
+      z-index: 3;
+    }
+
     .movie-info-text {
-      color: white;
-      width: 50%;
+      z-index: 2;
+      color: rgb(224, 224, 224);
+      width: 40%;
     }
   }
+}
+
+.container-display {
+  display: block;
 }
