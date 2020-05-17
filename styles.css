@@ -2,18 +2,82 @@ body {
   font-family: 'Montserrat', sans-serif;
   padding: 0;
   margin: 0;
-  background-color: black;
+  background: -webkit-gradient(linear, left top, right top, from(#121213), to(#292a2b));
+  background: linear-gradient(to right, #121213, #292a2b);
   color: white;
-  overflow: hidden;
 }
 
 nav {
+  background-color: #141414;
+  height: 8vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav a {
+  margin-left: 20px;
+  color: #ca0303;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+nav .search-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  width: 80%;
+}
+
+nav .search-wrapper form {
+  width: 50%;
+  height: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+nav .search-wrapper form i {
+  font-size: 1.5em;
+  color: #ca0303;
+}
+
+nav .search-wrapper form input {
+  padding: 0px 5px;
+  height: 80%;
+  width: 60%;
+  border: none;
+  border-radius: 10px;
+}
+
+nav .search-wrapper form input:focus {
+  outline: none;
+  border: 1.5px solid #ca0303;
+}
+
+nav .search-wrapper form button {
+  height: 80%;
+  outline: none;
+  border-radius: 10px;
 }
 
 #movieSearched {
@@ -60,6 +124,7 @@ nav {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  z-index: 10;
 }
 
 .movie-list button.right {
@@ -68,6 +133,7 @@ nav {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  z-index: 10;
 }
 
 .movie-list img {

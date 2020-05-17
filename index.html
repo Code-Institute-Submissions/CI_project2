@@ -14,29 +14,31 @@
 
   <body>
     <nav class="nav">
-      <div class="nav-wrapper">
+      <div class="brand-wrapper">
         <a class="brand-link" href="#">Movie app</a>
       </div>
       <div class="search-wrapper">
         <form>
-          <div>
-            <i class="fas fa-search"></i>
-            <input
-              type="text"
-              name="search-text"
-              id="search-text"
-              autocomplete="off"
-              placeholder="Movie Name"
-            />
-            <button type="submit" id="search-btn">Search Movie</button>
-          </div>
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            name="search-text"
+            id="search-text"
+            autocomplete="off"
+            placeholder="Movie Name"
+          />
+          <button type="submit" id="search-btn">Search Movie</button>
         </form>
       </div>
     </nav>
 
     <section id="movieSearched">
-      <div class="movie"></div>
+      <div class="movie" id="searchedWrapper"></div>
     </section>
+    <section id="movieContainer">
+      <div class="movie" id="movieWrapper"></div>
+    </section>
+
     <script
       src="https://kit.fontawesome.com/763b9f9d47.js"
       crossorigin="anonymous"

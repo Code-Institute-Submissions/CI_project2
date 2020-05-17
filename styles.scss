@@ -2,14 +2,64 @@ body {
   font-family: 'Montserrat', sans-serif;
   padding: 0;
   margin: 0;
-  background-color: black;
+  background: linear-gradient(to right, #121213, #292a2b);
   color: white;
-  overflow: hidden;
 }
 
 nav {
+  background-color: rgb(20, 20, 20);
+  height: 8vh;
   display: flex;
   justify-content: space-between;
+
+  align-items: center;
+
+  a {
+    margin-left: 20px;
+    color: rgb(202, 3, 3);
+    text-decoration: none;
+    font-size: 1.5em;
+  }
+
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 80%;
+
+    form {
+      width: 50%;
+      height: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      i {
+        font-size: 1.5em;
+        color: rgb(202, 3, 3);
+      }
+
+      input {
+        padding: 0px 5px;
+        height: 80%;
+        width: 60%;
+        border: none;
+        border-radius: 10px;
+
+        &:focus {
+          outline: none;
+          border: 1.5px solid rgb(202, 3, 3);
+        }
+      }
+
+      button {
+        height: 80%;
+        outline: none;
+        border-radius: 10px;
+      }
+    }
+  }
 }
 
 #movieSearched {
@@ -52,6 +102,7 @@ nav {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 10;
   }
 
   button.right {
@@ -59,6 +110,7 @@ nav {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 10;
   }
 
   img {

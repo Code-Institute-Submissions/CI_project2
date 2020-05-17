@@ -7,12 +7,16 @@ const searchBtn = $('#search-btn');
 
 // generate images
 function generateImg(movies) {
-  // eslint-disable-next-line consistent-return
-  return movies.map((movie) => {
+  let moviesHTML = '';
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const movie of movies) {
     if (movie.poster_path) {
-      return `<img src=${imageUrl + movie.poster_path} data-movie-id=${movie.id} class='movie-img'/>`;
+      moviesHTML = moviesHTML.concat(`<img src=${imageUrl + movie.poster_path} data-movie-id=${movie.id} class='movie-img'/>`);
     }
-  });
+  }
+
+  return moviesHTML;
 }
 
 // get genres of movie result
@@ -26,8 +30,9 @@ function getGenre(result) {
 }
 
 // create movie info container
-function createMovieContainer(movies) {
+function createMovieContainer(movies, title = '') {
   const movieTemplate = `
+  <h3>${title}</h3>
   <section class='movie-list'>
     <div class='image-list'>
       ${generateImg(movies)}
@@ -60,40 +65,68 @@ function createMovieInfo(result) {
   return template;
 }
 
+// generate iframe for youtube trailer
 function createMovieVideo(result) {
   const template = `
   <div class='movie-video-container'>
-    <iframe src='https://www.youtube.com/embed/${result[0].key}?ps=docs&controls=1' width='460' height='350' frameborder='0' allowfullscreen autoplay=1></iframe>
+    <iframe src='https://www.youtube.com/embed/${result[0].key}?ps=docs&controls=1' width='460' height='350' frameborder='0' allowfullscreen></iframe>
   </div>
   `;
   return template;
 }
 
+// render searched movies
 function renderSearchedMovies(response) {
-  $('.movie').html('');
+  $('#searchedWrapper').html('');
   $('#search-text').val('');
   const movies = response.results;
-  const movieList = createMovieContainer(movies);
-  $('.movie').append(movieList);
+  const movieList = createMovieContainer(movies, this.title);
+  $('#searchedWrapper').append(movieList);
+}
+
+function renderMovies(response) {
+  const movies = response.results;
+  const movieList = createMovieContainer(movies, this.title);
+  $('#movieWrapper').append(movieList);
+}
+
+// ajax request function
+function ajaxRequest(url, onComplete) {
+  $.ajax(url).done(onComplete);
+}
+
+function searchMovie(searchText) {
+  const searchUrl = `${baseUrl}search/movie?api_key=${apiKey}&query=${searchText}`;
+  const render = renderSearchedMovies.bind({ title: `You searched for '${searchText}'` });
+  ajaxRequest(searchUrl, render);
+}
+
+function upComingMovies() {
+  const upComingUrl = `${baseUrl}movie/upcoming?api_key=${apiKey}`;
+  const render = renderMovies.bind({ title: 'Upcoming movies' });
+  ajaxRequest(upComingUrl, render);
+}
+
+function topRatedMovies() {
+  const topRatedUrl = `${baseUrl}movie/top_rated?api_key=${apiKey}`;
+  const render = renderMovies.bind({ title: 'Top Rated Movies' });
+  ajaxRequest(topRatedUrl, render);
+}
+
+function popularMovies() {
+  const popularUrl = `${baseUrl}movie/popular?api_key=${apiKey}`;
+  const render = renderMovies.bind({ title: 'Popular Movies' });
+  ajaxRequest(popularUrl, render);
 }
 
 
+// when document is ready
 $(() => {
   // listen click on search button
   searchBtn.on('click', (e) => {
     e.preventDefault();
-
     const searchText = $('#search-text').val();
-    console.log(searchText);
-
-    const settings = {
-      url: `${baseUrl}search/movie?api_key=${apiKey}&query=${searchText}`,
-      method: 'GET',
-      timeout: 0,
-    };
-
-    // generate movie list
-    $.ajax(settings).done(renderSearchedMovies);
+    searchMovie(searchText);
   });
 
   // listen for click on image
@@ -101,32 +134,34 @@ $(() => {
     e.preventDefault();
     const { target } = e;
     if (target.className === 'movie-img') {
-      $('#movieInfoContainer').addClass('container-display');
       const movieImg = $(target);
+      const movieInfoContainer = movieImg.parent().parent().next();
+      movieInfoContainer.addClass('container-display');
+      $('body,html').animate(
+        {
+          scrollTop: movieInfoContainer.offset().top,
+        },
+        800, // speed
+      );
+
+
       const movieId = movieImg.attr('data-movie-id');
       console.log(movieId);
 
-      const settings = {
-        url: `${baseUrl}movie/${movieId}?api_key=${apiKey}`,
-        method: 'GET',
-        timeout: 0,
-      };
+      const movieUrl = `${baseUrl}movie/${movieId}?api_key=${apiKey}`;
 
-      $.ajax(settings).done((response) => {
-        const settings2 = {
-          url: `${baseUrl}movie/${movieId}/videos?api_key=${apiKey}`,
-          method: 'GET',
-          timeout: 0,
-        };
+      // generate movie info box with movie info and trailer
+      $.ajax(movieUrl).done((response) => {
+        const videoUrl = `${baseUrl}movie/${movieId}/videos?api_key=${apiKey}`;
 
-        $.ajax(settings2).done((response2) => {
+        $.ajax(videoUrl).done((response2) => {
           $('.movie-info').html('');
-          console.log(response);
           const result = response;
           const movieInfo = createMovieInfo(result);
           $('.movie-info').html(movieInfo);
           if (result.backdrop_path) {
-            $('.movie-info').css('background-image', `url(${imageUrl + result.backdrop_path})`);
+            $('.movie-info').css('background', `url(${imageUrl + result.backdrop_path}) no-repeat center center`);
+            $('.movie-info').css('background-size', 'cover');
           } else {
             $('.movie-info').css('background', 'linear-gradient(90deg, rgba(22,22,22,1) 0%, rgba(5,5,5,1) 0%, rgba(60,0,0,1) 100%, rgba(255,0,0,1) 100%)');
           }
@@ -139,21 +174,47 @@ $(() => {
       });
     }
 
+    // arrow buttons to scroll movie list horizontally
     if (target.className === 'left') {
-      console.log('clicked left');
-      $('.image-list').animate({
+      const left = $(e.target);
+      left.prev().animate({
         scrollLeft: '-=400px',
       }, 'slow');
     }
+
+    if (target.parentElement.className === 'left') {
+      const left = $(target).parent();
+      left.prev().animate({
+        scrollLeft: '-=400px',
+      }, 'slow');
+    }
+
     if (target.className === 'right') {
-      console.log('clicked right');
-      $('.image-list').animate({
+      const right = $(e.target);
+      right.prev().prev().animate({
         scrollLeft: '+=400px',
       }, 'slow');
     }
 
+    if (target.parentElement.className === 'right') {
+      console.log($(target).parent());
+      const right = $(target).parent();
+      right.prev().prev().animate({
+        scrollLeft: '+=400px',
+      }, 'slow');
+    }
+
+
+    // closes movie info when clicking on close button
     if (target.classList.contains('close-movie-btn')) {
-      $('#movieInfoContainer').removeClass('container-display');
+      const close = $(target);
+      close.parent().parent().removeClass('container-display');
     }
   });
 });
+
+upComingMovies();
+
+topRatedMovies();
+
+popularMovies();
