@@ -2,13 +2,12 @@ body {
   font-family: 'Montserrat', sans-serif;
   padding: 0;
   margin: 0;
-  background: -webkit-gradient(linear, left top, right top, from(#121213), to(#292a2b));
-  background: linear-gradient(to right, #121213, #292a2b);
+  background: #0a0a0a;
   color: white;
 }
 
 nav {
-  background-color: #141414;
+  background-color: #0f0f0f;
   height: 8vh;
   display: -webkit-box;
   display: -ms-flexbox;
