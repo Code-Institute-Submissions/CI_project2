@@ -24,7 +24,7 @@ function getGenre(result) {
   let genres = '';
   // eslint-disable-next-line no-restricted-syntax
   for (const genre of result.genres) {
-    genres += `${genre.name} `;
+    genres += `<span>${genre.name}</span> `;
   }
   return genres;
 }
@@ -57,7 +57,7 @@ function createMovieInfo(result) {
   const template = `
   <div class='movie-info-text'>
     <h1 class='movie-title'>${result.title}</h1>
-    <p> ${result.runtime} minutes, ${(result.release_date).slice(0, 4)}</p>
+    <p><span> ${result.runtime} minutes</span> <span>${(result.release_date).slice(0, 4)}</span></p>
     <p class='genre'>${getGenre(result)}</p>
     <p class='movie-overview'>${result.overview}</p>
   </div>
@@ -102,15 +102,15 @@ function searchMovie(searchText) {
 }
 
 function upComingMovies() {
-  const upComingUrl = `${baseUrl}movie/upcoming?api_key=${apiKey}`;
-  const render = renderMovies.bind({ title: 'Upcoming movies' });
+  const upComingUrl = `${baseUrl}movie/upcoming?api_key=${apiKey}&language=en-US`;
+  const render = renderMovies.bind({ title: 'Coming Soon' });
   ajaxRequest(upComingUrl, render);
 }
 
-function topRatedMovies() {
-  const topRatedUrl = `${baseUrl}movie/top_rated?api_key=${apiKey}`;
-  const render = renderMovies.bind({ title: 'Top Rated Movies' });
-  ajaxRequest(topRatedUrl, render);
+function nowPlayingMovies() {
+  const nowPlayingUrl = `${baseUrl}movie/now_playing?api_key=${apiKey}`;
+  const render = renderMovies.bind({ title: 'Now Playing' });
+  ajaxRequest(nowPlayingUrl, render);
 }
 
 function popularMovies() {
@@ -139,9 +139,9 @@ $(() => {
       movieInfoContainer.addClass('container-display');
       $('body,html').animate(
         {
-          scrollTop: movieInfoContainer.offset().top,
+          scrollTop: movieImg.offset().top,
         },
-        800, // speed
+        900, // speed
       );
 
 
@@ -149,26 +149,28 @@ $(() => {
       console.log(movieId);
 
       const movieUrl = `${baseUrl}movie/${movieId}?api_key=${apiKey}`;
+      const movieInfoBlock = movieInfoContainer.children().next().children().next();
+      console.log(movieInfoBlock);
 
       // generate movie info box with movie info and trailer
       $.ajax(movieUrl).done((response) => {
         const videoUrl = `${baseUrl}movie/${movieId}/videos?api_key=${apiKey}`;
 
         $.ajax(videoUrl).done((response2) => {
-          $('.movie-info').html('');
+          movieInfoBlock.html('');
           const result = response;
           const movieInfo = createMovieInfo(result);
-          $('.movie-info').html(movieInfo);
+          movieInfoBlock.html(movieInfo);
           if (result.backdrop_path) {
-            $('.movie-info').css('background', `url(${imageUrl + result.backdrop_path}) no-repeat center center`);
-            $('.movie-info').css('background-size', 'cover');
+            movieInfoBlock.css('background', `url(${imageUrl + result.backdrop_path}) no-repeat center center`);
+            movieInfoBlock.css('background-size', 'cover');
           } else {
-            $('.movie-info').css('background', 'linear-gradient(90deg, rgba(22,22,22,1) 0%, rgba(5,5,5,1) 0%, rgba(60,0,0,1) 100%, rgba(255,0,0,1) 100%)');
+            movieInfoBlock.css('background', 'linear-gradient(90deg, rgba(22,22,22,1) 0%, rgba(5,5,5,1) 0%, rgba(60,0,0,1) 100%, rgba(255,0,0,1) 100%)');
           }
           const result2 = response2.results;
           if (result2[0]) {
             const video = createMovieVideo(result2);
-            $('.movie-info').append(video);
+            movieInfoBlock.append(video);
           }
         });
       });
@@ -215,6 +217,6 @@ $(() => {
 
 upComingMovies();
 
-topRatedMovies();
+nowPlayingMovies();
 
 popularMovies();

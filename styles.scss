@@ -24,28 +24,31 @@ nav {
   .search-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     height: 100%;
     width: 80%;
 
     form {
-      width: 50%;
+      margin-right: 20px;
+      width: 100%;
       height: 2em;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-
+      justify-content: flex-end;
       i {
         font-size: 1.5em;
         color: rgb(202, 3, 3);
+      }
+      .block {
+        width: 10px;
       }
 
       input {
         padding: 0px 5px;
         height: 80%;
-        width: 60%;
+        width: 300px;
         border: none;
-        border-radius: 10px;
+        border-radius: 5px;
 
         &:focus {
           outline: none;
@@ -55,15 +58,24 @@ nav {
 
       button {
         height: 80%;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: rgb(145, 145, 145);
         outline: none;
-        border-radius: 10px;
+        border-color: rgb(160, 160, 160);
       }
     }
   }
 }
 
 #movieSearched {
-  margin-top: 20px;
+  margin: 0px;
+}
+
+.movie {
+  h3 {
+    padding: 10px;
+  }
 }
 
 .movie-list {
@@ -183,10 +195,198 @@ nav {
       z-index: 2;
       color: rgb(224, 224, 224);
       width: 40%;
+      span {
+        padding: 5px;
+        background-color: rgba(255, 255, 255, 0.247);
+      }
     }
   }
 }
 
 .container-display {
   display: block;
+}
+
+@media (max-width: 1024px) {
+  nav {
+    .search-wrapper {
+      width: 60%;
+      form {
+        margin-right: 10px;
+
+        i {
+          font-size: 1.2em;
+        }
+        input {
+          height: 30px;
+        }
+
+        .block {
+          width: 5px;
+        }
+
+        button {
+          height: 30px;
+        }
+      }
+    }
+  }
+
+  .movie {
+    h3 {
+      font-weight: 300;
+      padding: 10px 0;
+      margin: 10px;
+      font-size: 1.2em;
+    }
+  }
+
+  .movie-info-container {
+    .close-movie-info {
+      margin: 5px 10px;
+      font-size: 1.5em;
+      color: rgb(255, 51, 51);
+      right: 0;
+      position: absolute;
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.2s ease-in;
+    }
+    .movie-info {
+      height: 400px;
+
+      .movie-video-container {
+        z-index: 3;
+        iframe {
+          height: 200px;
+          width: 250px;
+        }
+      }
+
+      .movie-info-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        font-weight: 200;
+        font-size: 0.8em;
+
+        p {
+          margin: 10px 0;
+        }
+
+        h1 {
+          margin: 0;
+          padding: 15px 0 10px 0;
+          line-height: 20px;
+        }
+        span {
+          padding: 2px;
+          background-color: rgba(255, 255, 255, 0.247);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  nav {
+    .brand-wrapper {
+      a {
+        width: 100%;
+        margin-left: 10px;
+        font-size: 1em;
+        text-align: center;
+      }
+    }
+
+    .search-wrapper {
+      width: 60%;
+      form {
+        margin-right: 10px;
+
+        i {
+          font-size: 1em;
+        }
+        input {
+          height: 25px;
+          width: 180px;
+        }
+
+        .block {
+          width: 5px;
+        }
+
+        button {
+          height: 25px;
+        }
+      }
+    }
+  }
+
+  .movie {
+    h3 {
+      font-weight: 300;
+      padding: 10px 0;
+      margin: 10px;
+      font-size: 0.9em;
+    }
+    img {
+      width: 110px;
+      height: 150px;
+    }
+
+    button {
+      width: 25px;
+      height: 40%;
+    }
+  }
+
+  .movie-info-container {
+    .close-movie-info {
+      margin: 5px 5px;
+      font-size: 1.5em;
+      color: rgb(255, 51, 51);
+      right: 0;
+      position: absolute;
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.2s ease-in;
+    }
+    .movie-info {
+      height: 350px;
+
+      .movie-video-container {
+        z-index: 3;
+        iframe {
+          height: 120px;
+          width: 160px;
+        }
+      }
+
+      .movie-info-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        line-height: 11px;
+        font-weight: 100;
+        font-size: 0.6em;
+
+        p {
+          margin: 10px 0;
+        }
+
+        h1 {
+          margin: 0;
+          padding: 15px 0 10px 0;
+          line-height: 15px;
+        }
+        span {
+          padding: 2px;
+          background-color: rgba(255, 255, 255, 0.247);
+        }
+      }
+    }
+  }
 }
