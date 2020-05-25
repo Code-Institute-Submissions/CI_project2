@@ -81,10 +81,7 @@ nav {
 .movie-list {
   position: relative;
   overflow-y: hidden;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  display: flex;
 
   .image-list {
     overflow-x: scroll;
@@ -92,6 +89,18 @@ nav {
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    img {
+      height: 330px !important;
+      width: 250px !important;
+      transition: all 0.5s ease-in-out;
+
+      &:hover {
+        margin: 0 10px;
+        transform: scale(1.05);
+        cursor: pointer;
+      }
     }
   }
 
@@ -123,18 +132,6 @@ nav {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-  }
-
-  img {
-    height: 330px;
-    width: 250px;
-    transition: all 0.5s ease-in-out;
-
-    &:hover {
-      margin: 0 10px;
-      transform: scale(1.05);
-      cursor: pointer;
-    }
   }
 
   p {

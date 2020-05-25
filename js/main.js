@@ -146,11 +146,9 @@ $(() => {
 
 
       const movieId = movieImg.attr('data-movie-id');
-      console.log(movieId);
-
       const movieUrl = `${baseUrl}movie/${movieId}?api_key=${apiKey}`;
       const movieInfoBlock = movieInfoContainer.children().next().children().next();
-      console.log(movieInfoBlock);
+
 
       // generate movie info box with movie info and trailer
       $.ajax(movieUrl).done((response) => {
@@ -199,7 +197,6 @@ $(() => {
     }
 
     if (target.parentElement.className === 'right') {
-      console.log($(target).parent());
       const right = $(target).parent();
       right.prev().prev().animate({
         scrollLeft: '+=400px',

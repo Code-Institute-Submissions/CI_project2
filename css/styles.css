@@ -98,10 +98,9 @@ nav .search-wrapper form button {
 .movie-list {
   position: relative;
   overflow-y: hidden;
-}
-
-.movie-list::-webkit-scrollbar {
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .movie-list .image-list {
@@ -113,6 +112,20 @@ nav .search-wrapper form button {
 
 .movie-list .image-list::-webkit-scrollbar {
   display: none;
+}
+
+.movie-list .image-list img {
+  height: 330px !important;
+  width: 250px !important;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.movie-list .image-list img:hover {
+  margin: 0 10px;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  cursor: pointer;
 }
 
 .movie-list button {
@@ -145,20 +158,6 @@ nav .search-wrapper form button {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   z-index: 10;
-}
-
-.movie-list img {
-  height: 330px;
-  width: 250px;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-
-.movie-list img:hover {
-  margin: 0 10px;
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-  cursor: pointer;
 }
 
 .movie-list p {
