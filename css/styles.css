@@ -236,6 +236,7 @@ nav .search-wrapper form button {
 }
 
 footer {
+  background-color: #0f0f0f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
